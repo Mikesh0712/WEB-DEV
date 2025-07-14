@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crop Doctor – Plant Disease Detection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 🔰 Navbar -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Crop Doctor Logo" class="logo-img" />
+      <span class="logo-text">Crop Doctor</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#how">How It Works</a>
+      <a href="#upload">Detect</a>
+      <a href="#samples">Samples</a>
+    </nav>
+
+    <!-- 🌗 Theme & 🌐 Language -->
+    <div class="navbar-extras">
+      <label class="switch">
+        <input type="checkbox" id="themeSwitch" />
+        <span class="slider"></span>
+      </label>
+      <select id="langSelect" class="lang-select">
+        <option value="en">🌐 English</option>
+        <option value="hi">🇮🇳 हिंदी</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- 🌄 Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Detect Plant Diseases Instantly</h1>
+      <p>Empowering farmers with AI-based crop health diagnosis</p>
+      <a href="#upload" class="cta-button">Detect Now</a>
+    </div>
+  </section>
+
+  <!-- 📤 Upload Section -->
+  <section id="upload" class="upload-section">
+    <h2>Upload Your Crop Leaf</h2>
+    <p>Select or take a photo of your crop to get diagnosis instantly</p>
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="uploadImage()">Detect Disease</button>
+    <div id="result" class="result-box"></div>
+  </section>
+
+  <!-- 🧪 Sample Detection Cards -->
+  <section id="samples" class="sample-section">
+    <h2>Common Crop Diseases</h2>
+    <div class="sample-grid">
+      <div class="card">
+        <img src="assets/leaf1.jpg" alt="Leaf 1" />
+        <h3>Tomato Early Blight</h3>
+        <p>Dark spots with concentric rings caused by fungus. Apply organic fungicide.</p>
+      </div>
+      <div class="card">
+        <img src="assets/leaf2.jpg" alt="Leaf 2" />
+        <h3>Potato Late Blight</h3>
+        <p>Dark lesions on leaves. Caused by Phytophthora infestans. Requires quick action.</p>
+      </div>
+      <div class="card">
+        <img src="assets/leaf3.jpg" alt="Leaf 3" />
+        <h3>Rice Brown Spot</h3>
+        <p>Brown spots with yellow halos. Maintain soil balance and avoid overwatering.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⚙️ How It Works -->
+  <section id="how" class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step"><span>1</span><p>Upload an image of your infected crop</p></div>
+      <div class="step"><span>2</span><p>AI analyzes leaf symptoms instantly</p></div>
+      <div class="step"><span>3</span><p>Get diagnosis, remedy, and prevention tips</p></div>
+    </div>
+  </section>
+
+  
+
+  <!-- 🔚 Footer -->
+  <footer class="footer">
+    <p>© 2025 Crop Doctor | Powered by AI & Agriculture</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
