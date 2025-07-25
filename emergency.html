@@ -8,7 +8,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
   <style>
-    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
     .section-box {
       background: rgba(255, 255, 255, 0.85);
       padding: 20px;
@@ -16,7 +20,7 @@
       margin-bottom: 20px;
     }
     #map {
-      height: 400px;
+      height: 450px;
       width: 100%;
       border-radius: 10px;
     }
@@ -40,126 +44,87 @@
     </div>
   </header>
 
-  <!-- Page Header -->
+  <!-- Header -->
   <section class="mt-24 text-center px-4 section-box">
-    <h2 class="text-4xl font-bold text-pink-600 mb-4" data-aos="fade-up">Emergency Contacts</h2>
+    <h2 class="text-4xl font-bold text-pink-600 mb-4" data-aos="fade-up">Emergency Help</h2>
     <p class="text-gray-700 mb-4" data-aos="fade-up" data-aos-delay="100">
-      Quick access to helpline numbers and nearby emergency services.
+      Allow location access to view nearby Police Stations and Hospitals.
     </p>
-    <p class="text-sm text-gray-500">Please allow location access to find nearest hospitals and police stations.</p>
   </section>
 
-  <!-- Emergency Numbers -->
-  <section class="container mx-auto px-4 py-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6 section-box">
-    <div class="text-center">
-      <h3 class="text-xl font-bold mb-2">Police</h3>
-      <a href="tel:112" class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition">Call 112</a>
-    </div>
-    <div class="text-center">
-      <h3 class="text-xl font-bold mb-2">Women Helpline</h3>
-      <a href="tel:1091" class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition">Call 1091</a>
-    </div>
-    <div class="text-center">
-      <h3 class="text-xl font-bold mb-2">Ambulance</h3>
-      <a href="tel:108" class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition">Call 108</a>
-    </div>
-    <div class="text-center">
-      <h3 class="text-xl font-bold mb-2">Child Helpline</h3>
-      <a href="tel:1098" class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition">Call 1098</a>
-    </div>
-  </section>
-
-  <!-- Google Map -->
+  <!-- Map -->
   <section class="container mx-auto px-4 py-8 section-box">
-    <h3 class="text-2xl font-bold mb-4 text-center">Nearby Police Stations & Hospitals</h3>
+    <h3 class="text-2xl font-bold mb-4 text-center">Nearby Police & Hospitals</h3>
     <div id="map"></div>
-    <div class="text-center mt-4">
-      <button onclick="refreshNearbyPlaces()" class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition">
-        Refresh Nearby Places
-      </button>
-    </div>
   </section>
 
   <!-- Floating SOS Button -->
-  <a href="tel:112" 
-     class="fixed bottom-6 right-6 bg-pink-600 text-white rounded-full p-4 shadow-lg hover:bg-pink-700 hover:scale-110 transform transition duration-300 z-50 flex items-center justify-center"
-     title="Call Police (112)">
-     🚨
-  </a>
+  <a href="tel:112" class="fixed bottom-6 right-6 bg-pink-600 text-white rounded-full p-4 shadow-lg hover:bg-pink-700 hover:scale-110 transition z-50">🚨</a>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000 });
 
-    let map, userLocation;
+    let map, userLocation, service, infoWindow;
 
     function initMap() {
-      const defaultLocation = { lat: 28.6139, lng: 77.2090 }; // New Delhi fallback
       map = new google.maps.Map(document.getElementById("map"), {
-        center: defaultLocation,
-        zoom: 14,
+        zoom: 15,
+        center: { lat: 20.5937, lng: 78.9629 }, // India default
+        gestureHandling: 'greedy',
         scrollwheel: true,
-        gestureHandling: 'greedy'
+        styles: [
+          { featureType: "poi", stylers: [{ visibility: "off" }] }, // Hide all POIs
+          { featureType: "transit", stylers: [{ visibility: "off" }] }
+        ]
       });
+
+      infoWindow = new google.maps.InfoWindow();
 
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(position => {
           userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
           map.setCenter(userLocation);
-          new google.maps.Marker({ position: userLocation, map: map, title: "You are here" });
-          findPlaces(userLocation);
-        }, function() {
-          alert("Location access denied. Showing default area.");
-          userLocation = defaultLocation;
-          findPlaces(userLocation);
+
+          // Add user marker
+          new google.maps.Marker({
+            position: userLocation,
+            map,
+            title: "You are here",
+            icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+          });
+
+          // Places service
+          service = new google.maps.places.PlacesService(map);
+
+          // Load Police & Hospitals only
+          findPlaces('police', 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+          findPlaces('hospital', 'http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+
+        }, () => {
+          alert("Location access denied.");
         });
-      } else {
-        alert("Geolocation not supported by your browser.");
-        userLocation = defaultLocation;
-        findPlaces(userLocation);
       }
     }
 
-    function findPlaces(location) {
-      const service = new google.maps.places.PlacesService(map);
-      
-      // Police Stations
-      service.nearbySearch({ location, radius: 5000, type: ['police'] }, function(results, status) {
+    function findPlaces(type, icon) {
+      service.nearbySearch({
+        location: userLocation,
+        radius: 5000,
+        type: [type]
+      }, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           results.forEach(place => {
             new google.maps.Marker({
               position: place.geometry.location,
               map: map,
-              icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-              title: place.name
+              title: place.name,
+              icon: icon
             });
           });
         }
       });
-
-      // Hospitals
-      service.nearbySearch({ location, radius: 5000, type: ['hospital'] }, function(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          results.forEach(place => {
-            new google.maps.Marker({
-              position: place.geometry.location,
-              map: map,
-              icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-              title: place.name
-            });
-          });
-        }
-      });
-    }
-
-    function refreshNearbyPlaces() {
-      if (userLocation) {
-        map.setCenter(userLocation);
-        findPlaces(userLocation);
-      } else {
-        alert("User location not available yet.");
-      }
     }
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDefxp7NHi1JlyfkOJjOUPz0qINrvwTeZw&libraries=places&callback=initMap"></script>
