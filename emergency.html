@@ -72,8 +72,8 @@
       map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
         center: { lat: 20.5937, lng: 78.9629 }, // India default
-        gestureHandling: 'greedy',
-        scrollwheel: true,
+        gestureHandling: 'greedy', // Mobile touch
+        scrollwheel: true,         // Desktop zoom
         styles: [
           { featureType: "poi", stylers: [{ visibility: "off" }] }, // Hide all POIs
           { featureType: "transit", stylers: [{ visibility: "off" }] }
@@ -98,7 +98,7 @@
           // Places service
           service = new google.maps.places.PlacesService(map);
 
-          // Load Police & Hospitals only
+          // Search for Police & Hospitals within 10 km
           findPlaces('police', 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
           findPlaces('hospital', 'http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
@@ -111,10 +111,11 @@
     function findPlaces(type, icon) {
       service.nearbySearch({
         location: userLocation,
-        radius: 5000,
+        radius: 10000, // 10 km search radius
         type: [type]
       }, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
+          console.log(`${type} found:`, results);
           results.forEach(place => {
             new google.maps.Marker({
               position: place.geometry.location,
@@ -123,6 +124,8 @@
               icon: icon
             });
           });
+        } else {
+          console.log(`No ${type} found or status: ${status}`);
         }
       });
     }
