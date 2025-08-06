@@ -1,9 +1,18 @@
 import { auth, db } from './app.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { doc, setDoc, getDoc, updateDoc, arrayUnion } 
-    from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } 
-    from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  query,
+  collection,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL }
+  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
 const usernameEl = document.getElementById('username');
 const emailEl = document.getElementById('user-email');
@@ -12,11 +21,15 @@ const addBtn = document.getElementById('add-contact-btn');
 const avatarUpload = document.getElementById('avatar-upload');
 const avatarImg = document.getElementById('avatar');
 const authBtn = document.getElementById('auth-btn');
+const postsList = document.getElementById('posts-list'); // New for user's posts
 
 const storage = getStorage();
+let userUID = null;
 
-onAuthStateChanged(auth, async user => {
+// Check Auth State
+onAuthStateChanged(auth, async (user) => {
   if (user) {
+    userUID = user.uid;
     usernameEl.textContent = `Welcome, ${user.email.split('@')[0]}`;
     emailEl.textContent = user.email;
     authBtn.textContent = "Logout";
@@ -34,6 +47,8 @@ onAuthStateChanged(auth, async user => {
       displayContacts(contacts);
       if (data.avatarURL) avatarImg.src = data.avatarURL;
     }
+
+    loadUserPosts();
   } else {
     window.location.href = "login.html";
   }
@@ -52,24 +67,43 @@ addBtn.addEventListener('click', async () => {
 
   if (user) {
     const userRef = doc(db, "users", user.uid);
-    await updateDoc(userRef, {
-      emergencyContacts: arrayUnion({ name, phone })
-    }).catch(async () => {
+    const userSnap = await getDoc(userRef);
+    let contacts = [];
+
+    if (userSnap.exists()) {
+      contacts = userSnap.data().emergencyContacts || [];
+    }
+
+    contacts.push({ name, phone });
+    await updateDoc(userRef, { emergencyContacts: contacts }).catch(async () => {
       await setDoc(userRef, { emergencyContacts: [{ name, phone }] });
     });
 
-    displayContacts([{ name, phone }], true);
+    displayContacts(contacts);
     document.getElementById('contact-name').value = "";
     document.getElementById('contact-phone').value = "";
   }
 });
 
-function displayContacts(contacts, append = false) {
-  if (!append) contactsList.innerHTML = "";
-  contacts.forEach(c => {
+// Display Contacts with Delete Button
+function displayContacts(contacts) {
+  contactsList.innerHTML = "";
+  contacts.forEach((c, index) => {
     const li = document.createElement('li');
-    li.textContent = `${c.name} - ${c.phone}`;
+    li.innerHTML = `
+      ${c.name} - ${c.phone}
+      <button class="delete-btn" data-index="${index}">Delete</button>
+    `;
     contactsList.appendChild(li);
+  });
+
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const index = e.target.getAttribute('data-index');
+      contacts.splice(index, 1);
+      await updateDoc(doc(db, "users", userUID), { emergencyContacts: contacts });
+      displayContacts(contacts);
+    });
   });
 }
 
@@ -93,3 +127,24 @@ avatarUpload.addEventListener('change', async (e) => {
 
   alert("Profile picture updated!");
 });
+
+// Load User's Forum Posts
+async function loadUserPosts() {
+  if (!postsList) return;
+  postsList.innerHTML = "<li>Loading your posts...</li>";
+
+  const q = query(collection(db, "forumPosts"), where("userUID", "==", userUID));
+  const snapshot = await getDocs(q);
+
+  postsList.innerHTML = "";
+  if (snapshot.empty) {
+    postsList.innerHTML = "<li>No posts yet</li>";
+  } else {
+    snapshot.forEach(docSnap => {
+      const post = docSnap.data();
+      const li = document.createElement('li');
+      li.textContent = post.content || "Untitled Post";
+      postsList.appendChild(li);
+    });
+  }
+}
