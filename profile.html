@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | SheSafe</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">SheSafe</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html" class="active">Profile</a>
+    <a href="resources.html">Resources</a>
+    <a href="forum.html">Forum</a>
+    <a href="#" id="auth-btn">Login</a>
+  </nav>
+</header>
+
+<section class="profile-container">
+  <div class="profile-card">
+    <div class="avatar-container">
+      <img id="avatar" src="images/default-avatar.png" alt="Profile Picture">
+      <input type="file" id="avatar-upload" accept="image/*">
+    </div>
+    <h2 id="username">Welcome!</h2>
+    <p id="user-email"></p>
+  </div>
+
+  <div class="section-card">
+    <h3>Emergency Contacts</h3>
+    <ul id="contacts-list"></ul>
+    <div class="add-contact">
+      <input type="text" id="contact-name" placeholder="Name">
+      <input type="text" id="contact-phone" placeholder="Phone Number">
+      <button id="add-contact-btn">Add</button>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h3>Language</h3>
+    <div id="google_translate_element"></div>
+  </div>
+</section>
+
+<!-- SOS Button -->
+  <button id="sos-btn" class="sos-button">SOS</button>
+
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="module" src="js/profile.js"></script>
+<script type="module" src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+/* css/common.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* Header/Navbar */
+header {
+  background: #e91e63;
+  color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header img {
+  height: 50px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ffd1dc;
+}
+
+/* Page Container */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+/* Google Translate Dropdown */
+#google_translate_element {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 999;
+}
+
+/* Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* SOS Button Styling */
+.sos-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #e60000; /* Red Alert Color */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+  animation: pulse 1.5s infinite;
+}
+
+.sos-button:hover {
+  background-color: #b50000;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(230, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0); }
+}

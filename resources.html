@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resources | SheSafe</title>
+<link rel="stylesheet" href="css/resources.css" />
+<link rel="stylesheet" href="css/common.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">SheSafe</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="resources.html" class="active">Resources</a>
+    <a href="forum.html">Forum</a>
+    <a href="login.html" id="login-link">Login</a>
+  </nav>
+</header>
+
+<!-- Floating Language Selector -->
+<div id="google_translate_element" class="translate-widget"></div>
+
+<section class="container">
+  <h1 class="page-title">Explore Resources</h1>
+
+  <!-- Search & Filter -->
+  <div class="filter-bar">
+    <input type="text" id="searchInput" placeholder="Search resources..." />
+    <div class="filter-buttons">
+      <button data-category="all" class="active">All</button>
+      <button data-category="jobs">Jobs</button>
+      <button data-category="education">Education</button>
+      <button data-category="safety">Safety Tips</button>
+      <button data-category="laws">Legal Rights</button>
+    </div>
+  </div>
+
+  <!-- Resource Cards -->
+  <section class="resource-section" id="resource-links">
+    <h2>Jobs & Education Opportunities</h2>
+    <div class="card-grid">
+      <!-- Example Card -->
+      <div class="card" data-category="jobs">
+        <img src="images/jobs.jpg" alt="Jobs">
+        <h3>Naukri.com</h3>
+        <p>Find top job opportunities in India across various sectors.</p>
+        <div class="card-actions">
+          <a href="https://www.naukri.com" target="_blank" class="btn">Visit</a>
+          <span class="bookmark" title="Save">&#9734;</span>
+        </div>
+      </div>
+
+      <div class="card" data-category="education">
+        <img src="images/education.jpg" alt="Education">
+        <h3>Swayam</h3>
+        <p>Access free online courses from India’s top institutions.</p>
+        <div class="card-actions">
+          <a href="https://swayam.gov.in" target="_blank" class="btn">Visit</a>
+          <span class="bookmark" title="Save">&#9734;</span>
+        </div>
+      </div>
+
+      <div class="card" data-category="education">
+        <img src="images/coursera.jpg" alt="Coursera">
+        <h3>Coursera</h3>
+        <p>Learn new skills with scholarships & online programs.</p>
+        <div class="card-actions">
+          <a href="https://www.coursera.org" target="_blank" class="btn">Visit</a>
+          <span class="bookmark" title="Save">&#9734;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety Tips -->
+  <section class="resource-section" id="safety-tips">
+    <h2>Quick Safety Tips</h2>
+    <div class="card-grid">
+      <div class="tip-card" data-category="safety">
+        <h4>Share Location</h4>
+        <p>Always share your live location with trusted contacts when traveling alone.</p>
+      </div>
+      <div class="tip-card" data-category="safety">
+        <h4>Emergency Numbers</h4>
+        <p>Memorize quick dial numbers like 112 (Emergency), 1091 (Women Helpline).</p>
+      </div>
+      <div class="tip-card" data-category="safety">
+        <h4>Stay Alert</h4>
+        <p>Avoid using headphones in isolated areas and keep pepper spray handy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal Rights -->
+  <section class="resource-section" id="legal-rights">
+    <h2>Know Your Legal Rights</h2>
+    <div class="card-grid">
+      <div class="law-card" data-category="laws">
+        <h4>Right to Free Legal Aid</h4>
+        <p>Every woman has the right to free legal aid under the Legal Services Authorities Act, 1987.</p>
+        <a href="https://nalsa.gov.in/" target="_blank">Visit NALSA</a>
+      </div>
+      <div class="law-card" data-category="laws">
+        <h4>Right to File FIR</h4>
+        <p>Women can file an FIR at any police station, regardless of jurisdiction.</p>
+        <a href="https://www.india.gov.in/official-website-national-crime-records-bureau" target="_blank">NCRB</a>
+      </div>
+      <div class="law-card" data-category="laws">
+        <h4>Protection from Domestic Violence</h4>
+        <p>The Domestic Violence Act protects women against physical, emotional, and economic abuse.</p>
+        <a href="https://ncw.gov.in/" target="_blank">Visit NCW</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- SOS Button -->
+  <button id="sos-btn" class="sos-button">SOS</button>
+
+<!-- Google Translate Script -->
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="module" src="js/resources.js"></script>
+<script type="module" src="js/common.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

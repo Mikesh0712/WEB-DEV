@@ -1,0 +1,83 @@
+body {
+  background: #f8f8f8;
+}
+
+.navbar {
+  background: #e91e63;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.navbar nav a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.profile-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.profile-card {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #e91e63;
+}
+
+#avatar-upload {
+  display: block;
+  margin: 10px auto;
+}
+
+.section-card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.add-contact {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.add-contact input {
+  flex: 1;
+  padding: 8px;
+}
+
+.add-contact button {
+  background: #e91e63;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | SheSafe</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="form-box">
+      <h2 id="form-title">Login</h2>
+
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Email" required>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
+
+      <button id="auth-btn" class="btn">Login</button>
+
+      <p class="toggle-text">
+        Don't have an account? <span id="toggle-link">Sign Up</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- SOS Button -->
+  <button id="sos-btn" class="sos-button">SOS</button>
+
+  <!-- Google Translate -->
+  <div id="google_translate_element"></div>
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Scripts -->
+  <script type="module" src="js/login.js"></script>
+  <script type="module" src="js/common.js"></script>
+</body>
+</html>

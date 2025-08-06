@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forum | SheSafe</title>
+<link rel="stylesheet" href="css/forum.css">
+<link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+<header>
+  <div class="logo">SheSafe</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="resources.html">Resources</a>
+    <a href="forum.html" class="active">Forum</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<section class="forum-container">
+  <h2>Community Forum</h2>
+  <textarea id="post-content" placeholder="Share your thoughts, tips, or questions..."></textarea>
+  <button id="post-btn" class="btn-primary">Post</button>
+
+  <div class="forum-section">
+    <h3>🔥 Top Posts</h3>
+    <div id="top-posts" class="post-grid"></div>
+  </div>
+
+  <div class="forum-section">
+    <h3>📝 Recent Posts</h3>
+    <div id="all-posts" class="post-grid"></div>
+  </div>
+</section>
+
+<!-- SOS Button -->
+  <button id="sos-btn" class="sos-button">SOS</button>
+
+<!-- Google Translate -->
+<div id="google_translate_element"></div>
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="module" src="js/forum.js"></script>
+<script type="module" src="js/common.js"></script>
+</body>
+</html>
