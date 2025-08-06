@@ -1,83 +1,120 @@
-body {
-  background: #f8f8f8;
+/* Profile Page Layout */
+.profile-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.navbar {
-  background: #e91e63;
-  color: white;
-  padding: 15px 20px;
+.profile-left, .profile-right {
+  flex: 1;
+  min-width: 300px;
+}
+
+.profile-card, .section-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.avatar-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-container img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #e91e63;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.avatar-container input[type="file"] {
+  margin-top: 10px;
+}
+
+.section-card h3 {
+  font-size: 1.3rem;
+  color: #e91e63;
+  margin-bottom: 10px;
+}
+
+/* Emergency Contacts */
+.contacts-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.contacts-list li {
+  background: #f9f9f9;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.navbar .logo {
-  font-size: 22px;
-  font-weight: bold;
+.contacts-list .delete-btn {
+  background: #ff4d4d;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
-.navbar nav a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-.profile-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-.profile-card {
-  text-align: center;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-.avatar-container {
-  position: relative;
-  display: inline-block;
-}
-
-.avatar-container img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid #e91e63;
-}
-
-#avatar-upload {
-  display: block;
-  margin: 10px auto;
-}
-
-.section-card {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+.contacts-list .delete-btn:hover {
+  background: #d93636;
 }
 
 .add-contact {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  margin-top: 10px;
+  justify-content: center;
 }
 
 .add-contact input {
-  flex: 1;
   padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-.add-contact button {
+.btn-primary {
   background: #e91e63;
   color: white;
   border: none;
-  padding: 10px;
-  cursor: pointer;
+  padding: 8px 14px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #c2185b;
+}
+
+/* Forum Posts */
+.posts-list {
+  list-style: none;
+  padding: 0;
+}
+
+.posts-list li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  text-align: left;
 }
